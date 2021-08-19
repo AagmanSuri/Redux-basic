@@ -2,7 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-//import { createStore } from "redux";
+import { createStore } from "redux";
+import counterReducer from "./reducers/counter";
+import isLoggedReducer from "./reducers/isLogged";
+import allReducer from "./reducers/index";
+import { Provider } from "react-redux";
 
 // //Store ==> GLOBALIZED STATE
 
@@ -42,9 +46,19 @@ import App from "./App";
 // store.dispatch(increment());
 // store.dispatch(decrement());
 
+//{........................................................}
+
+// we can not do this so now we will combine the reducers
+//const store = createStore(counterReducer, isLoggedReducer);
+
+const store = createStore(allReducer);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* To give access to full store we will wrap Provider */}
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
